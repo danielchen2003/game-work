@@ -7,29 +7,108 @@ window.onload = function () {
   // ( 1. create the element
   //   2. add a class to the element
   //   3. append the element to the body )
-
+  const divOfDuck = document.createElement("div");
+  document.querySelector("div").classList.add("duck");
+  document.body.appendChild(divOfDuck);
   // 2. Next, use setInterval to toggle the "flap" class on the duck every 250 ms (1/4 second)
   // https://www.w3schools.com/jsref/met_win_setinterval.asp
 
+  setInterval(function () {
+    divOfDuck.classList.toggle = "flap";
+  }, 250);
   // 3. Now, let's move the duck using CSS "top" and "left". Create
   // a function `moveDuck` that takes a duck object as an argument and sets the
   // "top" and "left" CSS properties.
   // HINT: Use Math.random() * window.innerWidth    for "left"
   //       And Math.random() * window.innerHeight   for "top"
-
+  divOfDuck.style.left = Math.random() * window.innerWidth;
+  divOfDuck.style.top = Math.random() * window.innerHeight;
   // 4. Try making the duck move to a different location every second (what did we use to do this several lines up??)
+  setInterval(function () {
+    divOfDuck.style.top = Math.random() * window.innerHeight;
+    divOfDuck.style.left = Math.random() * window.innerWidth;
+  }, 100);
 
   // 5. Congratulations! Move on to part 2!
-
+  function random() {
+    divOfDuck.style.left = Math.round(Math.random() * window.innerWidth) + "px";
+    divOfDuck.style.top = Math.round(Math.random() * window.innerHeight) + "px";
+  }
   // ---------------------------- PART 2 ---------------------------------
 
   // 6. Now we will organize this better. Let's create
   //    a "function" called createDuck() that does everything in 1-4
   //    and "returns" the duck object
+  function createDuck() {
+    const divOfDuck = document.createElement("div");
+
+    divOfDuck.classList.add("duck");
+    document.body.appendChild(divOfDuck);
+    // 2. Next, use setInterval to toggle the "flap" class on the duck every 250 ms (1/4 second)
+    // https://www.w3schools.com/jsref/met_win_setinterval.asp
+    // const duck = document.querySelector(".duck");
+    const randomPosition = function () {
+      divOfDuck.style.left =
+        Math.round(Math.random() * window.innerWidth) + "px";
+      divOfDuck.style.top =
+        Math.round(Math.random() * window.innerHeight) + "px";
+    };
+
+    function checkForWinner() {
+      let count = document.getElementsByClassName("duck").length;
+      if (count === 1) {
+        alert("you are winner");
+      }
+    }
+
+    divOfDuck.onclick = function () {
+      divOfDuck.classList.add("shot");
+
+      setInterval(function () {
+        divOfDuck.remove();
+        checkForWinner();
+      }, 1000);
+    };
+
+    setInterval(function () {
+      divOfDuck.classList.toggle = "flap";
+    }, 250);
+
+    // 3. Now, let's move the duck using CSS "top" and "left". Create
+    // a function `moveDuck` that takes a duck object as an argument and sets the
+    // "top" and "left" CSS properties.
+    // HINT: Use Math.random() * window.innerWidth    for "left"
+    //       And Math.random() * window.innerHeight   for "top"
+    randomPosition();
+    // divOfDuck.style.left = Math.round(Math.random() * spaceW) + "px";
+    // divOfDuck.style.top = Math.round(Math.random() * spaceH) + "px";
+    // 4. Try making the duck move to a different location every second (what did we use to do this several lines up??)
+    // setInterval(function () {
+    //   divOfDuck.style.left =
+    //     Math.round(Math.random() * window.innerWidth) + "px";
+    //   divOfDuck.style.top =
+    //     Math.round(Math.random() * window.innerHeight) + "px";
+    // }, 100);
+
+    setInterval(randomPosition, 100);
+
+    return divOfDuck;
+  }
 
   // 7. Now, let's create lots of ducks!  Use a "for" loop to create 5 ducks
   //    using our fancy new createDuck() function
+  for (let i = 0; i < 5; i++) {
+    createDuck();
+  }
 
+  // document.querySelector("div").addEventListener("click", function () {
+  //   console.log(1);
+  //   document.querySelector(".duck").remove();
+  //   document.querySelector(".duck").classList.add("shot");
+  // setInterval(function () {
+  //   document.body.removeChild(duck);
+  // }, 1000);
+  // });
   // 8. The ducks are overlapping.  Modify createDuck so each time
   //     it creates a duck, it appears in a random location
   // HINT: You may want to create a `randomPosition()` function that you can use
@@ -38,10 +117,29 @@ window.onload = function () {
   // 9. Keep going! Move onto part 3!
 
   // --------------------------- PART 3 ------------------------------------
+  // let duck = document.querySelector(".duck");
+
+  // let count = document.body.childElementCount;
+  // while (count >= 0) {
+  //
 
   // 11. BOOM. Attach a "click" handler that adds the "shot" class to
   //     the duck when you click on it!
+  // document
+  //   .querySelector(".duck")
+  //   .addEventListener("click", function boom(event) {
+  //     console.log(1);
+  //     document.querySelector(".duck").remove();
+  //     document.querySelector(".duck").classList.add("shot");
+  //     // setInterval(function () {
+  //     //   document.body.removeChild(duck);
+  //     // }, 1000);
+  //   });
 
+  // const remove = () => {
+  //   console.log(1);
+  //   duck.remove();
+  // };
   // 12. After a duck has been clicked on, remove it from the DOM after
   //     a short delay (1 second) Hint Hint...use setTimeout
   //     as for removing the element check out https://dzone.com/articles/removing-element-plain
